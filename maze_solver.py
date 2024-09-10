@@ -23,12 +23,20 @@ def IsWayValid(labyrinthe,position):
 
 def IsFinish(labyrinthe,position):
     if labyrinthe[position[0]][position[1]] == "E":
+        print("finish")
         return True
 
 def MazeSolver(labyrinthe,current_position):
-    # while not IsFinish(labyrinthe,current_position):
-    current_position[0] += down
     print(current_position)
+    while not IsFinish(labyrinthe,current_position):
+        line_position  , column_position = current_position
+        if IsWayValid(labyrinthe,current_position):
+            line_position +=1
+        else:
+            line_position -=1
+            column_position +=1
+        current_position = (line_position,column_position)
+        print(current_position)
 
     
 
@@ -37,8 +45,6 @@ def PrintLabyrinthe(labyrinthe):
         print(lists)
  
 PrintLabyrinthe(labyrinthe) 
-# MazeSolver(labyrinthe,start)  
-next = start[0] + up
-print(next)
+MazeSolver(labyrinthe,start)  
 
 
