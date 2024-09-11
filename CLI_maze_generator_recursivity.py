@@ -1,16 +1,29 @@
 def maze_size():
     size = input("How big does the maze need to be ? (one number only) : ")
     size = int(size)
-    size *= size
     return size
 
+
 def choose_file_name():
-    file = input("Enter the name for the file : ")
+    file = input("Enter the name for the file (.txt at the end) : ")
     return file
 
+
+def create_maze():
+    l = []
+    a = 2 * maze_size() + 1
+    for i in range(a):
+        b = "#" * a
+        l.append(b)
+    l = str(l)
+    return l
+
+
 def create_maze_file():
-    file = open(choose_file_name, "w") 
-    file.write("Voici le texte de mon fichier") 
-    file.close()
+    m = create_maze()
+    with open(choose_file_name(), "w") as file:
+        for line in m:
+            file.write(str(line))
+        file.write(''.join(m))
 
-
+create_maze_file()
