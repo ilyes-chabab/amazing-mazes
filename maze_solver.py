@@ -1,50 +1,57 @@
+import sys
 
 labyrinthe = [
-    ['S', '.', '#', '#', '#', '#', '#'],
-    ['#', '.', '#', '.', '#', '.', '#'],
-    ['#', '.', '#', '.', '#', '.', '#'],
+    ['.', '.', '#', '#', '#', '#', '#'],
+    ['#', '.', '#', '.', '.', '.', '#'],
     ['#', '.', '.', '.', '#', '.', '#'],
-    ['#', '#', '#', '.', '#', '.', '#'],
     ['#', '.', '.', '.', '.', '.', '#'],
-    ['#', '#', '#', '#', '#', '.', 'E']
+    ['#', '.', '#', '#', '#', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '#'],
+    ['#', '#', '#', '#', '.', '.', '.']
 ]
 
-list_of_walls = []
+file_name= input("Quel nom de fichier voulez-vous ? : ")
 start = (0,0)
-end = (6,6)
-
-up , down , left , right = -1,1,-1,1
-
-def IsWayValid(labyrinthe,position):
-    if labyrinthe[position[0]][position[1]] == "#":
+size_of_labyrinthe = 7
+end = (size_of_labyrinthe -1,size_of_labyrinthe -1)
+    
+def MazeSolver(labyrinthe,x,y):
+    
+    if x < 0 or x > len(labyrinthe) or y < 0 or y > len(labyrinthe):
         return False
-    else:
+    
+    if labyrinthe[x][y] == '#' or labyrinthe[x][y] == '*' or labyrinthe[x][y] == 'o':
+        return False
+    
+    if x == len(labyrinthe) - 1 and y == len(labyrinthe) - 1:
+        labyrinthe[x][y] = 'o'
+        return True
+    
+    labyrinthe[x][y] = 'o'
+
+    if (MazeSolver(labyrinthe, x, y + 1) or  
+        MazeSolver(labyrinthe, x + 1, y) or  
+        MazeSolver(labyrinthe, x, y - 1) or  
+        MazeSolver(labyrinthe, x - 1, y)):   
         return True
 
-def IsFinish(labyrinthe,position):
-    if labyrinthe[position[0]][position[1]] == "E":
-        print("finish")
-        return True
-
-def MazeSolver(labyrinthe,current_position):
-    print(current_position)
-    while not IsFinish(labyrinthe,current_position):
-        line_position  , column_position = current_position
-        if IsWayValid(labyrinthe,current_position):
-            line_position +=1
-        else:
-            line_position -=1
-            column_position +=1
-        current_position = (line_position,column_position)
-        print(current_position)
+    labyrinthe[x][y] = '*'
+    return False
 
     
 
 def PrintLabyrinthe(labyrinthe):
-    for lists in labyrinthe:
-        print(lists)
+    for case in labyrinthe:
+        print("".join(case))
  
+
+MazeSolver(labyrinthe,0,0) 
 PrintLabyrinthe(labyrinthe) 
-MazeSolver(labyrinthe,start)  
 
 
+with open(f"{file_name}.txt","w") as file:
+    sys.stdout = file
+    
+    PrintLabyrinthe(labyrinthe) 
+
+    sys.stdout = sys.__stdout__
