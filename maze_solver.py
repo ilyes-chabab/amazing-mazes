@@ -30,26 +30,21 @@ def MazeSolver(maze, x, y):
 
     maze[x][y] = "o"
 
-    if (
-        MazeSolver(maze, x, y + 1)
-        or MazeSolver(maze, x + 1, y)
-        or MazeSolver(maze, x, y - 1)
-        or MazeSolver(maze, x - 1, y)
-    ):
+    if (MazeSolver(maze, x, y + 1) 
+        or MazeSolver(maze, x + 1, y) 
+        or MazeSolver(maze, x, y - 1) 
+        or MazeSolver(maze, x - 1, y)):
         return True
 
     maze[x][y] = "*"
     return False
 
-
 def Printmaze(maze):
     for case in maze:
         print("".join(case))
 
-
 MazeSolver(maze, 0, 0)
 Printmaze(maze)
-
 
 with open(f"{file_name}.txt", "w") as file:
     sys.stdout = file
