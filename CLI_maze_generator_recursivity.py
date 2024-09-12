@@ -13,17 +13,16 @@ def create_maze():
     l = []
     a = 2 * maze_size() + 1
     for i in range(a):
-        b = "#" * a
-        l.append(b)
-    l = str(l)
+        row = "#" * a
+        l.append(row)
     return l
 
 
 def create_maze_file():
-    m = create_maze()
+    maze = create_maze()
     with open(choose_file_name(), "w") as file:
-        for line in m:
-            file.write(str(line))
-        file.write(''.join(m))
+        for line in maze:
+            file.write(line + "\n")
+        
 
 create_maze_file()
