@@ -43,12 +43,15 @@ def Printmaze(maze):
     for case in maze:
         print("".join(case))
 
-MazeSolver(maze, 0, 0)
-Printmaze(maze)
+def MakeFileTxt(file_name):
+    with open(f"{file_name}.txt", "w") as file:
+        sys.stdout = file
 
-with open(f"{file_name}.txt", "w") as file:
-    sys.stdout = file
+        Printmaze(maze)
 
-    Printmaze(maze)
+        sys.stdout = sys.__stdout__
 
-    sys.stdout = sys.__stdout__
+if __name__ == "__main__":
+    MazeSolver(maze, 0, 0)
+    MakeFileTxt(file_name)
+
