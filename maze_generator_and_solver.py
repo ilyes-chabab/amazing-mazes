@@ -37,6 +37,18 @@ def MazeGenerator(x,y):
             maze[x + MoveX //2][y + MoveY //2] = "."
             MazeGenerator(NewX,NewY)
 
+def MazeSolver(x,y):
+    maze[x][y] = "o"
+
+    random.shuffle(solver_movement)
+
+    for dx,dy in solver_movement:
+        Newx = x + dx
+        Newy= y + dy
+        if IsCaseValidForSolver(Newx,Newy):
+            maze[x + dx ][y + dy ] = "o"
+            MazeSolver(x+dx,x+dy)
+
 def Printmaze(maze):
     n=0
     for i in maze:
