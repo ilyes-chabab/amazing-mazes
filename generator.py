@@ -27,6 +27,7 @@ def create_maze_file(maze):
         for line in maze:
             file.write("".join(line) + "\n") # Writing the maze in a file without [] or ""
 
+
 def generate_random_positions(size):
     random_positions = []
     real_size = real_maze_size(size)
@@ -41,7 +42,9 @@ def generate_random_directions():
     d = random.randint(1,4)
     return d
 
-def recursive_backtrack():
+
+
+def recursive_backtrack(size):
     direction = generate_random_directions()
     numbers = generate_random_positions(size)
     maze = create_maze(size)
@@ -61,7 +64,10 @@ def recursive_backtrack():
 
 def main():
     size = input_maze_size()
+    maze = create_maze(size)
+    create_maze_file(maze)
     recursive_backtrack(size)
+    
     
 
 if __name__ == "__main__":
