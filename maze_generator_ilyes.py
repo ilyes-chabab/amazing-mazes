@@ -32,6 +32,7 @@ maze = BaseOfTheMaze(size,maze)
 def IsCaseValidForGenerator(x,y):
     if 0 <= x < size and 0 <= y < size and maze[x][y] == "." and (x,y) not in generator_stack:
         return True
+    return False
 
 def MazeGenerator(x,y):
     maze[x][y]="."
