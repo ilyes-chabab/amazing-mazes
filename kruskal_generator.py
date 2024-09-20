@@ -36,17 +36,17 @@ def kruskal_generator(maze):
             neighbor_cell = (x+dx, y+dy)
             print("neighbor", neighbor_cell)
             if valid_cell(x + dx , y+dy, maze):
-                # print("neigbor != cell_list",neighbor_cell , cell_list[0][0])
+                print("neigbor != cell_list",neighbor_cell , cell_list[0][0])
                 if neighbor_cell != cell_list[0][0]:
                     ite = 0
                     for cell in cell_list:
                         if neighbor_cell == cell[0]:
-                            # print("neighbor == cell[0] in cell_list",neighbor_cell , cell[0])
+                            print("neighbor == cell[0] in cell_list : ",neighbor_cell , cell[0])
                             new_cell = cell_list.pop(ite)
                             for new in new_cell:
-                                # print("new in new_cell",new)
+                                print("new in new_cell",new)
                                 cell_list[0].append(new)
-                            # print("new",new_cell)
+                            print("new",new_cell)
                             print(cell_list)
     # n=0
     # for i in cell_list:
