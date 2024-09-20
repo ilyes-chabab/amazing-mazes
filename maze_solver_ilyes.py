@@ -29,7 +29,7 @@ def mazeSolver(x,y):
         return True
     else:
     
-        maze_for_solver[x][y] = CHAR_PATH
+        maze_for_solver[x][y] = CHAR_VISITED
 
         random.shuffle(MOVES)
 
@@ -38,8 +38,9 @@ def mazeSolver(x,y):
             new_y = y + dy
 
             if validCaseSolver(x + dx , y + dy) and maze_for_solver[(x + new_x) // 2][(y + new_y) // 2] == CHAR_WAY :
-                maze_for_solver[(x + new_x) // 2][(y + new_y) // 2] = CHAR_PATH
-                mazeSolver(new_x,new_y)
+                maze_for_solver[(x + new_x) // 2][(y + new_y) // 2] = CHAR_VISITED
+                if mazeSolver(new_x,new_y):
+                    maze_for_solver[x][y] = CHAR_PATH
 
 
 if __name__ == "__main__":

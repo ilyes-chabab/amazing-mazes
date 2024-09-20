@@ -59,11 +59,7 @@ def Printmaze(maze):
         n+=1
 
 if __name__ == "__main__":
-
-    print("base sur laquelle le générateur va s'appuyer ")
-    Printmaze(maze)
     print("génération du labyrinthe")
     MazeGenerator(1,1)
     Printmaze(maze)
-    print("solution")
 
