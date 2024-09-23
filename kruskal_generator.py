@@ -28,6 +28,8 @@ def kruskal_generator(maze):
     random.shuffle(cell_list)
 
     iter_cell = 0
+
+    print(cell_list)
     for cell in cell_list:
         x,y  = cell_list[iter_cell][0][0] , cell_list[iter_cell][0][1]
         print((x,y))
@@ -40,14 +42,17 @@ def kruskal_generator(maze):
                 if neighbor_cell != cell_list[0][0]:
                     ite = 0
                     for cell in cell_list:
+                        print("cell", cell)
                         if neighbor_cell == cell[0]:
                             print("neighbor == cell[0] in cell_list : ",neighbor_cell , cell[0])
                             new_cell = cell_list.pop(ite)
+                            print("new_cell", new_cell)
                             for new in new_cell:
                                 print("new in new_cell",new)
                                 cell_list[0].append(new)
-                            print("new",new_cell)
                             print(cell_list)
+                        else:
+                            ite +=1
     # n=0
     # for i in cell_list:
     #     n+=1
