@@ -7,6 +7,7 @@ from maze_generator_ilyes import (
 )
 import random
 import sys
+sys.setrecursionlimit(20000)
 
 CHAR_WALL = "#"
 CHAR_WAY = "."
@@ -68,7 +69,6 @@ def MakeFile(name):
 
 def main_backtracking_solver():
     mazeSolver(1, 1)
-    Printmaze(maze_for_solver)
     MakeFile(name_file)
 
 

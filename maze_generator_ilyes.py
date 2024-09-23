@@ -1,6 +1,9 @@
 import random
 import sys
 
+sys.setrecursionlimit(20000)  
+
+
 size = int(input("Quelle taille de labyrinthe voullez-vous ? : "))
 name_file = str(input("Quel nom de fichier voullez-vous ? : "))
 
@@ -78,9 +81,7 @@ def MakeFile(name):
 
 
 def main_backtracking_generator():
-    print("génération du labyrinthe de taile ", (size - 1) / 2)
     MazeGenerator(1, 1)
-    Printmaze(maze)
     MakeFile(name_file)
     return maze
 
