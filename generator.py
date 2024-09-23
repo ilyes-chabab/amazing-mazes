@@ -22,34 +22,34 @@ def create_maze_file(maze):
             file.write("".join(line) + "\n")
 
 def random_directions():
-    directions = [1, 2, 3, 4]  # 1: haut, 2: droite, 3: bas, 4: gauche
-    random.shuffle(directions)  # Mélanger les directions pour chaque appel
+    directions = [1, 2, 3, 4]  # 1: up, 2: right, 3: down, 4: left
+    random.shuffle(directions)  # Shuffle direction for each call
     return directions
 
 def recursive_backtrack(maze, x, y, size):
-    maze[x][y] = " "  # Marque la cellule actuelle comme un chemin (espace vide)
+    maze[x][y] = " "  # Mark the current cell as empty
 
     for direction in random_directions():
-        if direction == 1:  # Haut
+        if direction == 1:
             nx, ny = x - 2, y
-        elif direction == 2:  # Droite
+        elif direction == 2:
             nx, ny = x, y + 2
-        elif direction == 3:  # Bas
+        elif direction == 3:
             nx, ny = x + 2, y
-        elif direction == 4:  # Gauche
+        elif direction == 4:
             nx, ny = x, y - 2
 
-        # Vérifier si la nouvelle position est dans les limites du labyrinthe
+        # Check if the new positions is in the maze
         if 1 <= nx < real_maze_size(size) - 1 and 1 <= ny < real_maze_size(size) - 1:
-            if maze[nx][ny] == "#":  # Si la cellule n'a pas encore été visitée
-                # Enlever le mur entre les cellules (mettre un espace)
+            if maze[nx][ny] == "#":  # If the cell was not visited
+                # Take out the wall between cell
                 maze[(x + nx) // 2][(y + ny) // 2] = " "
-                # Appel récursif pour continuer à creuser à partir de la nouvelle cellule
+                # Calling the function recursivingly to keep diging
                 recursive_backtrack(maze, nx, ny, size)
 
 def generate_maze(size):
     maze = create_maze(size)
-    start_x, start_y = 1, 1  # Point de départ
+    start_x, start_y = 1, 1  # Starting point
     recursive_backtrack(maze, start_x, start_y, size)
     return maze
 
