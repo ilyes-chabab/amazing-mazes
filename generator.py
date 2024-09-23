@@ -1,74 +1,62 @@
 import random
 
 def input_maze_size():
-    size = input("How big does the maze need to be ? (one number only) : ")
+    size = input("How big does the maze need to be? (one number only) : ")
     return int(size)
 
 def real_maze_size(size):
     return 2 * size + 1
 
-
 def choose_file_name():
     file = input("Enter the name for the file (.txt at the end) : ")
-    return file # Return the file name choosen by the user
-
+    return file
 
 def create_maze(size):
-    l = []
     new_size = real_maze_size(size)
-    for i in range(new_size):
-        row = ["#"] * new_size # Creating our lines for the maze
-        l.append(row) # adding the lines to our maze
-    return l # return the maze
-
+    l = [["#"] * new_size for _ in range(new_size)]
+    return l
 
 def create_maze_file(maze):
     with open(choose_file_name(), "w") as file:
         for line in maze:
-            file.write("".join(line) + "\n") # Writing the maze in a file without [] or ""
+            file.write("".join(line) + "\n")
 
+def random_directions():
+    directions = [1, 2, 3, 4]  # 1: haut, 2: droite, 3: bas, 4: gauche
+    random.shuffle(directions)  # Mélanger les directions pour chaque appel
+    return directions
 
-def generate_random_positions(size):
-    random_positions = []
-    real_size = real_maze_size(size)
-    for i in range(2):
-        i = random.randint(1,real_size - 2)
-        random_positions.append(i)
-    return random_positions
+def recursive_backtrack(maze, x, y, size):
+    maze[x][y] = " "  # Marque la cellule actuelle comme un chemin (espace vide)
 
-    # return [random.randint(1,real_size), random.randint(1,real_size)]
+    for direction in random_directions():
+        if direction == 1:  # Haut
+            nx, ny = x - 2, y
+        elif direction == 2:  # Droite
+            nx, ny = x, y + 2
+        elif direction == 3:  # Bas
+            nx, ny = x + 2, y
+        elif direction == 4:  # Gauche
+            nx, ny = x, y - 2
 
-def generate_random_directions():
-    d = random.randint(1,4)
-    return d
+        # Vérifier si la nouvelle position est dans les limites du labyrinthe
+        if 1 <= nx < real_maze_size(size) - 1 and 1 <= ny < real_maze_size(size) - 1:
+            if maze[nx][ny] == "#":  # Si la cellule n'a pas encore été visitée
+                # Enlever le mur entre les cellules (mettre un espace)
+                maze[(x + nx) // 2][(y + ny) // 2] = " "
+                # Appel récursif pour continuer à creuser à partir de la nouvelle cellule
+                recursive_backtrack(maze, nx, ny, size)
 
-
-
-def recursive_backtrack(size):
-    direction = generate_random_directions()
-    numbers = generate_random_positions(size)
+def generate_maze(size):
     maze = create_maze(size)
-    if direction == 1:
-        maze[numbers[0]][numbers[1]] = maze[numbers[0]][numbers[1] + 1]
-        print ("up")
-    elif direction == 2:
-        maze[numbers[0]][numbers[1]] = maze[numbers[0] + 1][numbers[1]]
-        print ("right")
-    elif direction == 3:
-        maze[numbers[0]][numbers[1]] = maze[numbers[0]][numbers[1] - 1]
-        print ("down")
-    elif direction == 4:
-        maze[numbers[0]][numbers[1]] = maze[numbers[0] - 1][numbers[1]]
-        print ("left")
-
+    start_x, start_y = 1, 1  # Point de départ
+    recursive_backtrack(maze, start_x, start_y, size)
+    return maze
 
 def main():
     size = input_maze_size()
-    maze = create_maze(size)
+    maze = generate_maze(size)
     create_maze_file(maze)
-    recursive_backtrack(size)
-    
-    
 
 if __name__ == "__main__":
     main()
